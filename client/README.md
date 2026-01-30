@@ -30,7 +30,7 @@ Backend
 - bcryptjs - Password hashing
 - CORS - Cross-origin resource sharing
 
-##  Prerequisites
+Prerequisites:
 
 - Node.js 
 - MongoDB (local or MongoDB Atlas)
@@ -94,3 +94,28 @@ cd client
 npm run dev
 
 Frontend will run on http://localhost:3000
+
+## Deployment on Render (Integrated Full-Stack)
+
+1. Go to [Render Dashboard](https://dashboard.render.com) and sign in.
+2. Click "New" and select "Web Service".
+3. Connect your GitHub repository.
+4. Configure the service:
+   - **Name**: Choose a name for your service (e.g., `task-manager`).
+   - **Runtime**: Node
+   - **Build Command**: `npm run build`
+   - **Start Command**: `npm start`
+   - **Root Directory**: `server`
+5. Add environment variables:
+   - `MONGO_URI`: Your MongoDB connection string
+   - `JWT_SECRET`: Your JWT secret key
+   - `PORT`: Will be set automatically by Render
+6. Click "Create Web Service".
+
+The build command will install client dependencies, build the frontend, and copy the build files to the server directory. The server will serve both the API and the static frontend files.
+
+### Notes
+
+- Ensure your MongoDB database is accessible (use MongoDB Atlas for cloud hosting).
+- The application will be available at the web service URL provided by Render.
+- For development, run the client and server separately as described above.
