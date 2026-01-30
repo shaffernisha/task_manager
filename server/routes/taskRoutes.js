@@ -9,7 +9,7 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// 🔐 All routes are protected
+//  All routes are protected
 router.get("/", authMiddleware, getTasks);
 router.post("/", authMiddleware, addTask);
 router.put("/:id", authMiddleware, updateTask);

@@ -8,60 +8,70 @@ function Register() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const submit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/auth/register", {
-        name,
-        email,
-        password,
-      });
-
-      alert("Registration successful 🎉");
-      navigate("/");
-    } catch (error) {
-      alert(
-        error.response?.data?.message ||
-        "Registration failed (check backend)"
-      );
+      await API.post("/auth/register", { name, email, password });
+      navigate("/login");
+    } catch (err) {
+      alert(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2>Create Account</h2>
+    <div className="auth-page">
+      <div className="auth-center">
+        <div className="auth-head">
+          <h1>Create Account</h1>
+          <p>Start managing your tasks efficiently</p>
+        </div>
 
-        <form onSubmit={submit}>
-          <input
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+        <form className="auth-card" onSubmit={handleRegister}>
+          {/* Full Name */}
+          <div className="form-group">
+            <label htmlFor="name">Full name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          {/* Email */}
+          <div className="form-group">
+            <label htmlFor="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          {/* Password */}
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Minimum 8 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-          <button type="submit">Register</button>
+          <button className="primary-btn">Create Account</button>
+
+          <p className="small-text">
+            Already have an account? <Link to="/login">Log in</Link>
+          </p>
         </form>
-
-        <p>
-          Already registered? <Link to="/">Login</Link>
-        </p>
       </div>
     </div>
   );
