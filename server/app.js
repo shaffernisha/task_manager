@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/authRoutes.js";
@@ -10,14 +12,31 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(cors());
 app.use(express.json());
 
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
+//  ROOT CHECK FOR RENDER
+app.get("/", (req, res) => {
+  res.send("Personal Task Manager API is running....Server deployed successfully");
+});
+
+//  Serve React build
+app.use(express.static(path.join(__dirname, "dist")));
+
+//  For React Router 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
-  console.log(`Server running on port ${PORT} `)
+  console.log(`Server running on port ${PORT}`)
 );
+
+
