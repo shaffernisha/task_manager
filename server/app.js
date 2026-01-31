@@ -23,7 +23,7 @@ app.use("/api/tasks", taskRoutes);
 
 //  ROOT CHECK FOR RENDER
 app.get("/", (req, res) => {
-  res.send("Personal Task Manager API is running... Server is running successfully");
+  res.send("Personal Task Manager API is running....Server deployed successfully");
 });
 
 //  Serve React build
